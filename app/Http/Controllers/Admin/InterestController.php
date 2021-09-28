@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\InterestStoreRequest;
+use App\Http\Requests\InterestUpdateRequest;
+use App\Libraries\FormFields;
 use App\Models\Interest;
 use Illuminate\Http\Request;
 
@@ -14,7 +18,9 @@ class InterestController extends Controller
      */
     public function index()
     {
-        //
+        $interests = Interest::orderBy('title')->paginate(10);
+
+        return view('admin.interest.index', compact('interests'));
     }
 
     /**
@@ -22,9 +28,16 @@ class InterestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Interest $interest)
     {
-        //
+        $formFields = new FormFields($interest);
+        $formFields = $formFields->generateForm();
+
+        $data = [
+            'interest' => $formFields,
+        ];
+
+        return view('admin.interest.create', $data);
     }
 
     /**
@@ -33,9 +46,21 @@ class InterestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InterestStoreRequest $request)
     {
-        //
+        $attributes = array_merge(
+            $request->all(), [
+                'user_id' => auth()->id(),
+            ]);
+
+        if (Interest::create($attributes)) {
+            return redirect()
+                ->route('admin.interest.index')
+                ->with('status', "New Interest '{$request->title}' has been created successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 
     /**
@@ -44,10 +69,10 @@ class InterestController extends Controller
      * @param  \App\Models\Interest  $interest
      * @return \Illuminate\Http\Response
      */
-    public function show(Interest $interest)
-    {
-        //
-    }
+    // public function show(Interest $interest)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,7 +82,14 @@ class InterestController extends Controller
      */
     public function edit(Interest $interest)
     {
-        //
+        $formFields = new FormFields($interest);
+        $formFields = $formFields->generateForm();
+
+        $data = [
+            'interest' => $formFields,
+        ];
+
+        return view('admin.interest.edit', $data);
     }
 
     /**
@@ -67,9 +99,16 @@ class InterestController extends Controller
      * @param  \App\Models\Interest  $interest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Interest $interest)
+    public function update(InterestUpdateRequest $request, Interest $interest)
     {
-        //
+        if ($interest->update($request->all())) {
+            return redirect()
+                ->route('admin.interest.index')
+                ->with('status', "Interest '{$request->title}' has been updated successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 
     /**
@@ -80,6 +119,15 @@ class InterestController extends Controller
      */
     public function destroy(Interest $interest)
     {
-        //
+        $title = $interest->title;
+
+        if ($interest->delete()) {
+            return redirect()
+                ->route('admin.interest.index')
+                ->with('status', "Interest '{$title}' has been deleted successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 }

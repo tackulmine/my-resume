@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\EducationController;
+use App\Http\Controllers\Admin\InterestController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -49,6 +50,6 @@ Route::group([
     Route::resource('project', ProjectController::class)->except(['show']);
     Route::resource('skill', SkillController::class)->except(['show']);
     Route::resource('language', LanguageController::class)->except(['show']);
-    // Route::resource('interest', InterestController::class)->except(['show']);
+    Route::resource('interest', InterestController::class)->except(['show']);
     Route::resource('experience', WorkExperienceController::class)->except(['show']);
 });

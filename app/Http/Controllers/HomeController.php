@@ -24,7 +24,9 @@ class HomeController extends Controller
             'education' => function ($q) {
                 $q->orderByDesc('start_date');
             },
-            'interests',
+            'interests' => function ($q) {
+                $q->orderBy('title');
+            },
             'languages' => function ($q) {
                 $q->orderBy('title');
             },
