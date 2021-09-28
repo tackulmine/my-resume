@@ -25,7 +25,9 @@ class HomeController extends Controller
                 $q->orderByDesc('start_date');
             },
             'interests',
-            'languages',
+            'languages' => function ($q) {
+                $q->orderBy('title');
+            },
             'projects' => function ($q) {
                 $q->orderByDesc('start_date')
                     ->orderByDesc('created_at');

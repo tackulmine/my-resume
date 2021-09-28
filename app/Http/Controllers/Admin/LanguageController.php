@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LanguageStoreRequest;
+use App\Http\Requests\LanguageUpdateRequest;
+use App\Libraries\FormFields;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
@@ -14,7 +18,9 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        //
+        $languages = Language::orderBy('title')->paginate(10);
+
+        return view('admin.language.index', compact('languages'));
     }
 
     /**
@@ -22,9 +28,16 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Language $language)
     {
-        //
+        $formFields = new FormFields($language);
+        $formFields = $formFields->generateForm();
+
+        $data = [
+            'language' => $formFields,
+        ];
+
+        return view('admin.language.create', $data);
     }
 
     /**
@@ -33,9 +46,21 @@ class LanguageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LanguageStoreRequest $request)
     {
-        //
+        $attributes = array_merge(
+            $request->all(), [
+                'user_id' => auth()->id(),
+            ]);
+
+        if (Language::create($attributes)) {
+            return redirect()
+                ->route('admin.language.index')
+                ->with('status', "New Language '{$request->title}' has been created successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 
     /**
@@ -44,10 +69,10 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function show(Language $language)
-    {
-        //
-    }
+    // public function show(Language $language)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,7 +82,14 @@ class LanguageController extends Controller
      */
     public function edit(Language $language)
     {
-        //
+        $formFields = new FormFields($language);
+        $formFields = $formFields->generateForm();
+
+        $data = [
+            'language' => $formFields,
+        ];
+
+        return view('admin.language.edit', $data);
     }
 
     /**
@@ -67,9 +99,16 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Language $language)
+    public function update(LanguageUpdateRequest $request, Language $language)
     {
-        //
+        if ($language->update($request->all())) {
+            return redirect()
+                ->route('admin.language.index')
+                ->with('status', "Language '{$request->title}' has been updated successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 
     /**
@@ -80,6 +119,15 @@ class LanguageController extends Controller
      */
     public function destroy(Language $language)
     {
-        //
+        $title = $language->title;
+
+        if ($language->delete()) {
+            return redirect()
+                ->route('admin.language.index')
+                ->with('status', "Language '{$title}' has been deleted successfully!");
+        }
+
+        return back()
+            ->withInput();
     }
 }

@@ -4,7 +4,7 @@
     <div class="resume-section-content">
         <ul class="list-unstyled resume-lang-list">
             @foreach($user->languages as $language)
-            <li class="mb-2"><span class="resume-lang-name font-weight-bold">{{ $language->title }}</span> {{ !empty($language->value) ? '<small class="text-muted font-weight-normal">('.$language->value.')</small>' : '' }})</li>
+            <li class="mb-2"><span class="resume-lang-name font-weight-bold">{{ $language->title }}</span> {!! !empty($language->value) ? '<small class="text-muted font-weight-normal">('.$language->value.')</small>' : '' !!}</li>
             @endforeach
         </ul>
     </div>
