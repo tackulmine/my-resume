@@ -1,4 +1,4 @@
-@if (!empty($user->education))
+@if (!$user->education->isEmpty())
 <section class="resume-section education-section mb-5">
     <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Education</h2>
     <div class="resume-section-content">

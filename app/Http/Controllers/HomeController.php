@@ -28,6 +28,7 @@ class HomeController extends Controller
             },
             'projects.projectType',
             'skills',
+            'skills.skillType',
             'socialMedia',
             'userProfile',
             'workExperiences' => function ($q) {

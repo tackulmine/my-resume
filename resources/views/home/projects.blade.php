@@ -1,4 +1,4 @@
-@if (!empty($user->projects))
+@if (!$user->projects->isEmpty())
 <section class="resume-section experience-section mb-5">
     <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Projects</h2>
     <div class="resume-section-content">
@@ -23,17 +23,29 @@
                             </div>
                         @endif
                     </div><!--//resume-timeline-item-header-->
-                    {{-- <div class="resume-timeline-item-desc">
-                        {!! $project->summary !!}
-                        @if ($project->tags)
+                    <div class="resume-timeline-item-desc">
+                        @if (!empty($project->photo))
+                        <a href="{!! $project->url !!}" target="_blank">
+                        @endif
+                        @if (!empty($project->photo))
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('shared')->url($project->photo) }}"
+                            alt="{{ $project->title }}"
+                            width="200"
+                            >
+                        @endif
+                        @if (!empty($project->photo))
+                        </a>
+                        @endif
+                        {{-- {!! $project->summary !!} --}}
+                       {{--  @if ($project->tags)
                             <h4 class="resume-timeline-item-desc-heading font-weight-bold">Technologies used:</h4>
                             <ul class="list-inline">
                                 @foreach ($project->tags->pluck('name')->sort() as $tagName)
                                     <li class="list-inline-item"><span class="badge rounded-pill bg-primary">{{ $tagName }}</span></li>
                                 @endforeach
                             </ul>
-                        @endif
-                    </div><!--//resume-timeline-item-desc--> --}}
+                        @endif --}}
+                    </div><!--//resume-timeline-item-desc-->
                 </article><!--//resume-timeline-item-->
             @endforeach
         </div><!--//resume-timeline-->

@@ -1,3 +1,4 @@
+@if (!$user->skills->isEmpty())
 <section class="resume-section skills-section mb-5">
     <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills &amp; Tools</h2>
     <div class="resume-section-content">
@@ -84,3 +85,4 @@
         </div><!--//resume-skill-item-->
     </div><!--resume-section-content-->
 </section><!--//skills-section-->
+@endif

@@ -1,4 +1,4 @@
-@if (!empty($user->workExperiences))
+@if (!$user->workExperiences->isEmpty())
 <section class="resume-section experience-section mb-5">
     <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Work Experience</h2>
     <div class="resume-section-content">
