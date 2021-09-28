@@ -48,7 +48,10 @@ class HomeController extends Controller
                     ->orderByDesc($skillTable.'.created_at');
             },
             'skills.skillType',
-            'socialMedia',
+            'socialMedia' => function ($q) {
+                $q->orderBy('order_no')
+                    ->orderBy('title');
+            },
             'userProfile',
             'workExperiences' => function ($q) {
                 $q->orderByDesc('start_date');

@@ -14,12 +14,18 @@
                     </ul>
                 </div><!--//primary-info-->
                 <div class="secondary-info col-auto mt-2">
+                    @if(!$user->socialMedia->isEmpty())
                     <ul class="resume-social list-unstyled">
-                        <li class="mb-3"><a class="text-link" href="//linkedin.com/in/meftahul-jannah"><span class="fa-container text-center me-2"><i class="fab fa-linkedin-in fa-fw"></i></span>linkedin.com/in/meftahul-jannah</a></li>
-                        <li class="mb-3"><a class="text-link" href="//github.com/tackulmine"><span class="fa-container text-center me-2"><i class="fab fa-github-alt fa-fw"></i></span>github.com/tackulmine</a></li>
-                        <li class="mb-3"><a class="text-link" href="//codepen.io/tackulmine"><span class="fa-container text-center me-2"><i class="fab fa-codepen fa-fw"></i></span>codepen.io/tackulmine</a></li>
-                        <li><a class="text-link" href="#!"><span class="fa-container text-center me-2"><i class="fas fa-globe"></i></span>meftahul.com</a></li>
+                        @foreach ($user->socialMedia as $socialMedia)
+                            <li {!! $loop->iteration < count($user->socialMedia) ? 'class="mb-3"' : '' !!}>
+                                <a class="text-link" href="{{ $socialMedia->url }}" target="_blank">
+                                    <span class="fa-container text-center me-2">
+                                    <i class="{{ $socialMedia->fa_class }}"></i></span>{{ $socialMedia->title }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+                    @endif
                 </div><!--//secondary-info-->
             </div><!--//row-->
 

@@ -96,7 +96,7 @@
                                 <li class="list-group-item"><a href="{!! route('admin.skill.index') !!}">Skills</a></li>
                                 <li class="list-group-item"><a href="{!! route('admin.language.index') !!}">Languages</a></li>
                                 <li class="list-group-item"><a href="{!! route('admin.interest.index') !!}">Interests</a></li>
-                                <li class="list-group-item"><a href="#!">Social Medias</a></li>
+                                <li class="list-group-item"><a href="{!! route('admin.social-media.index') !!}">Social Medias</a></li>
                                 <li class="list-group-item"><a href="{!! route('admin.experience.index') !!}">Work Experiences</a></li>
                             </ul>
                         </div>
