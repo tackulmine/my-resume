@@ -2,7 +2,33 @@
 <section class="resume-section skills-section mb-5">
     <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills &amp; Tools</h2>
     <div class="resume-section-content">
+        @php
+        $groupedSkills = $user->skills->groupBy('skillType.title');
+        @endphp
+        @foreach($groupedSkills as $skillType => $skills)
         <div class="resume-skill-item">
+            <h4 class="resume-skills-cat font-weight-bold">{{ $skillType }}</h4>
+            @if ($skillType != "Others")
+            <ul class="list-unstyled mb-4">
+                @foreach($skills as $skill)
+                <li class="mb-2">
+                    <div class="resume-skill-name">{{ $skill->title }}</div>
+                    <div class="progress resume-progress">
+                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: {{ $skill->percentage }}%" aria-valuenow="{{ $skill->percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            @else
+            <ul class="list-inline">
+                @foreach($skills as $skill)
+                <li class="list-inline-item"><span class="badge bg-primary">{{ $skill->title }}</span></li>
+                @endforeach
+            </ul>
+            @endif
+        </div><!--//resume-skill-item-->
+        @endforeach
+        {{-- <div class="resume-skill-item">
             <h4 class="resume-skills-cat font-weight-bold">Frontend</h4>
             <ul class="list-unstyled mb-4">
                 <li class="mb-2">
@@ -82,7 +108,7 @@
                 <li class="list-inline-item"><span class="badge bg-primary">WordPress</span></li>
                 <li class="list-inline-item"><span class="badge bg-primary">Shopify</span></li>
             </ul>
-        </div><!--//resume-skill-item-->
+        </div><!--//resume-skill-item--> --}}
     </div><!--resume-section-content-->
 </section><!--//skills-section-->
 @endif
