@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\EducationController;
-use App\Http\Controllers\Admin\InterestController;
-use App\Http\Controllers\Admin\LanguageController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\InterestController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\EducationController;
 use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\WorkExperienceController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

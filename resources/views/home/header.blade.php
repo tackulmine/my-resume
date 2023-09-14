@@ -1,7 +1,7 @@
 <header class="resume-header pt-4 pt-md-0">
     <div class="row">
         <div class="col-block col-md-auto resume-picture-holder text-center text-md-start">
-            <img class="picture" src="{{ \Illuminate\Support\Facades\Storage::disk('shared')->url(optional($user->userProfile)->photo) }}" alt="{{ $user->name }}" onerror="this.src='/assets/images/profile.jpg';">
+            <img class="picture" src="{{ Storage::disk('shared')->url(optional($user->userProfile)->photo) }}" alt="{{ $user->name }}" onerror="this.src='/assets/images/profile.jpg';">
         </div><!--//col-->
         <div class="col">
             <div class="row p-4 justify-content-center justify-content-md-between">

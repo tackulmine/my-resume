@@ -53,9 +53,9 @@
                 <div class="col-sm-10">
                     <img
                         width="100"
-                        src="{{ ($user->userProfile && $user->userProfile->photo) ? \Illuminate\Support\Facades\Storage::disk('shared')->url(optional($user->userProfile)->photo) : '//placeimg.com/200/300/people' }}"
+                        src="{{ ($user->userProfile && $user->userProfile->photo) ? Storage::disk('shared')->url(optional($user->userProfile)->photo) : dummyAvatar($user->email) }}"
                         alt=""
-                        onError="this.src='//placeimg.com/200/300/people'"
+                        onError="this.src='{{ dummyAvatar($user->email) }}'"
                         >
                 </div>
             </div>

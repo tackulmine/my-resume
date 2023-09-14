@@ -39,9 +39,9 @@
     <div class="col-sm-10">
         <p><img
             width="100"
-            src="{{ (!empty($project->photo)) ? \Illuminate\Support\Facades\Storage::disk('shared')->url($project->photo) : '//placeimg.com/200/200/tech' }}"
+            src="{{ (!empty($project->photo)) ? Storage::disk('shared')->url($project->photo) : dummyImage(300, 200, '?random='.($project->id ?? 0)) }}"
             alt=""
-            onError="this.src='//placeimg.com/200/200/tech'"
+            onError="this.src='{{ dummyImage(300, 200, '?random='.($project->id ?? 0)) }}'"
             ></p>
         {!! Form::file('photo', ['class' => 'form-control']) !!}
     </div>

@@ -28,9 +28,9 @@
                             <td>{{ optional($item->projectType)->title }}</td>
                             <td><img
                                 width="100"
-                                src="{{ (!empty($item->photo)) ? \Illuminate\Support\Facades\Storage::disk('shared')->url($item->photo) : '//placeimg.com/200/200/tech' }}"
+                                src="{{ (!empty($item->photo)) ? Storage::disk('shared')->url($item->photo) : dummyImage(300, 200, '?random='.($item->id ?? 0)) }}"
                                 alt=""
-                                onError="this.src='//placeimg.com/200/200/tech'"
+                                onError="this.src='{{ dummyImage(300, 200, '?random='.($item->id ?? 0)) }}'"
                                 ></td>
                             <td>{{ (!empty($item->start_date) && !empty($item->end_date))
                                 ? $item->start_date->format('M Y').' - '.$item->end_date->format('M Y')

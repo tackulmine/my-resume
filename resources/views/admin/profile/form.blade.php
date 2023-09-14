@@ -45,9 +45,9 @@
     <div class="col-sm-10">
         <p><img
             width="100"
-            src="{{ (!empty($user->userProfile) && !empty($user->userProfile->photo)) ? \Illuminate\Support\Facades\Storage::disk('shared')->url(optional($user->userProfile)->photo) : '//placeimg.com/200/300/people' }}"
+            src="{{ (!empty($user->userProfile) && !empty($user->userProfile->photo)) ? Storage::disk('shared')->url(optional($user->userProfile)->photo) : dummyAvatar($user->email) }}"
             alt=""
-            onError="this.src='//placeimg.com/200/300/people'"
+            onError="this.src='{{ dummyAvatar($user->email) }}'"
             ></p>
         {!! Form::file('photo', ['class' => 'form-control']) !!}
     </div>

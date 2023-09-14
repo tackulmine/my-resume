@@ -27,8 +27,8 @@
                         @if (!empty($project->photo))
                         <a href="{!! $project->url !!}" target="_blank">
                         @endif
-                        @if (!empty($project->photo))
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('shared')->url($project->photo) }}"
+                        @if (!empty($project->photo) && Storage::disk('shared')->exists($project->photo))
+                        <img src="{{ Storage::disk('shared')->url($project->photo) }}"
                             alt="{{ $project->title }}"
                             width="200"
                             >
@@ -37,7 +37,7 @@
                         </a>
                         @endif
                         {{-- {!! $project->summary !!} --}}
-                       {{--  @if ($project->tags)
+                        {{--  @if ($project->tags)
                             <h4 class="resume-timeline-item-desc-heading font-weight-bold">Technologies used:</h4>
                             <ul class="list-inline">
                                 @foreach ($project->tags->pluck('name')->sort() as $tagName)
